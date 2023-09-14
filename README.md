@@ -4,7 +4,7 @@ Docker container to automatically update DynHost records with your public IP add
 
 ## Usage
 
-1 - [Create a DynHost user and configure a dynamic DNS record](https://docs.ovh.com/us/en/domains/hosting_dynhost/) for the domain of your choice.
+1 - [Create a DynHost user and configure a dynamic DNS record](https://help.ovhcloud.com/csm/en-ie-dns-dynhost?id=kb_article_view&sysparm_article=KB0051641) for the domain of your choice.
 
 2 - Using information from the previous step, run DynHost client container to continuously update your DNS record.
 
@@ -21,28 +21,6 @@ services:
       IDENTIFIER: "<domain>-<suffix>"
       PASSWORD: "<password>"
       LOG_LEVEL: "debug"
-```
-
-### Using kubernetes
-
-```yaml
-apiVersion: v1
-kind: Pod
-metadata:
-  name: dynhost-updater
-spec:
-  containers:
-    - name: dynhost-updater
-      image: pbe-axelor/ovh-dynhost-updater
-      env:
-        - name: HOSTNAME
-          value: "<host>.<domain>"
-        - name: IDENTIFIER
-          value: "<domain>-<suffix>"
-        - name: PASSWORD
-          value: "<password>"
-        - name: LOG_LEVEL
-          value: "debug"
 ```
 
 ### Environment variables

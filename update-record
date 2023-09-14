@@ -41,13 +41,13 @@ error(){ log error "$1"; }
 current_level_value=$(get_log_level_value $LOG_LEVEL)
 
 # retrieve last known (cached) address and current public address
-CACHED_IP_ADDRESS=$(cat /dynhost/.cache/ip_address 2>/dev/null)
-PUBLIC_IP_ADDRESS=$(dig @resolver4.opendns.com myip.opendns.com +short)
+OLD_IP_ADDRESS=$(dig +short $(echo $HOSTNAME | tr ";" "\n" | head -1))
+PUBLIC_IP_ADDRESS=$(dig +short myip.opendns.com @resolver1.opendns.com)
 
 # compare current address to cached one to avoid useless updates
-if [ "$CACHED_IP_ADDRESS" != "$PUBLIC_IP_ADDRESS" ]
+if [ "$OLD_IP_ADDRESS" != "$PUBLIC_IP_ADDRESS" ]
 then
-    info "Cached address changed from '$CACHED_IP_ADDRESS' to '$PUBLIC_IP_ADDRESS'"
+    info "Cached address changed from '$OLD_IP_ADDRESS' to '$PUBLIC_IP_ADDRESS'"
     for host in $(echo $HOSTNAME | tr ";" "\n");
     do
       # update DynHost record using OVH API
@@ -55,9 +55,6 @@ then
           -H "Authorization: Basic $(echo -n $IDENTIFIER:$PASSWORD | base64)")
       debug "OVH response: ${ovh_response}"
     done
-    # cache address for comparison, to avoid useless updates
-    mkdir -p .cache/
-    echo $PUBLIC_IP_ADDRESS > /dynhost/.cache/ip_address
 else
     debug "No changes detected"
 fi

@@ -48,10 +48,13 @@ PUBLIC_IP_ADDRESS=$(dig @resolver4.opendns.com myip.opendns.com +short)
 if [ "$CACHED_IP_ADDRESS" != "$PUBLIC_IP_ADDRESS" ]
 then
     info "Cached address changed from '$CACHED_IP_ADDRESS' to '$PUBLIC_IP_ADDRESS'"
-    # update DynHost record using OVH API
-    ovh_response=$(curl -sS "http://www.ovh.com/nic/update?system=dyndns&hostname=${HOSTNAME}&myip=${PUBLIC_IP_ADDRESS}" \
-        -H "Authorization: Basic $(echo -n $IDENTIFIER:$PASSWORD | base64)")
-    debug "OVH response: ${ovh_response}"
+    for host in $(echo $HOSTNAME | tr ";" "\n");
+    do
+      # update DynHost record using OVH API
+      ovh_response=$(curl -sS "http://www.ovh.com/nic/update?system=dyndns&hostname=${host}&myip=${PUBLIC_IP_ADDRESS}" \
+          -H "Authorization: Basic $(echo -n $IDENTIFIER:$PASSWORD | base64)")
+      debug "OVH response: ${ovh_response}"
+    done
     # cache address for comparison, to avoid useless updates
     mkdir -p .cache/
     echo $PUBLIC_IP_ADDRESS > /dynhost/.cache/ip_address

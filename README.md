@@ -27,7 +27,7 @@ services:
 
 |Variable|Description|Is required?|Default|
 |-|-|-|-|
-|HOSTNAME|Subdomain on which DNS record must be updated dynamically.|**Yes**|-|
+|HOSTNAME|Subdomain on which DNS record must be updated dynamically. Multiple hostnames can be set using `;` separator.|**Yes**|-|
 |IDENTIFIER|DynHost management username.|**Yes**|-|
 |PASSWORD|DynHost management password.|**Yes**|-|
 |LOG_LEVEL|String used to configure verbosity (must be one of: 'debug', 'info', 'error')|No|info|

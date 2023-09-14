@@ -15,7 +15,7 @@ version: "3"
 
 services:
   dynhost-updater:
-    image: sylvanld/update-ovh-dynhost
+    image: pbe-axelor/ovh-dynhost-updater
     environment:
       HOSTNAME: "<host>.<domain>"
       IDENTIFIER: "<domain>-<suffix>"
@@ -33,7 +33,7 @@ metadata:
 spec:
   containers:
     - name: dynhost-updater
-      image: sylvanld/update-ovh-dynhost
+      image: pbe-axelor/ovh-dynhost-updater
       env:
         - name: HOSTNAME
           value: "<host>.<domain>"

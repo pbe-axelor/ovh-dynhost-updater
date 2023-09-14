@@ -10,7 +10,7 @@ on:
 
 env:
   DOCKER_REGISTRY_URL: ghcr.io
-  DOCKER_IMAGE_NAME: pbe-axelor/ovh-dynhost-updater
+  DOCKER_IMAGE_NAME: ${{ github.repository }}
   RELEASE_TAG: ${GITHUB_REF/refs\/tags\//}
 
 # Jobs triggered on workflow run.

@@ -42,7 +42,7 @@ current_level_value=$(get_log_level_value $LOG_LEVEL)
 
 # retrieve last known (cached) address and current public address
 OLD_IP_ADDRESS=$(dig +short $(echo $HOSTNAME | tr ";" "\n" | head -1))
-PUBLIC_IP_ADDRESS=$(dig +short myip.opendns.com @resolver1.opendns.com)
+PUBLIC_IP_ADDRESS=$(dig +short myip.opendns.com @resolver4.opendns.com)
 
 # compare current address to cached one to avoid useless updates
 if [ "$OLD_IP_ADDRESS" != "$PUBLIC_IP_ADDRESS" ]

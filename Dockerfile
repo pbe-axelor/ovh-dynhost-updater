@@ -1,7 +1,7 @@
 FROM alpine
 
 # Install dig to retrieve public IP address
-RUN apk add bind-tools curl
+RUN apk add bind-tools curl tzdata
 
 WORKDIR /dynhost
 

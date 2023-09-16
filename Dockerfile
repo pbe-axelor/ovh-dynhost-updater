@@ -1,4 +1,4 @@
-FROM alpine
+FROM alpine:3.18
 
 # Install dig to retrieve public IP address
 RUN apk add bind-tools curl tzdata

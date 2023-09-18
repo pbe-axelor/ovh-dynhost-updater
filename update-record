@@ -23,7 +23,7 @@ log(){
     log_level_value=$(get_log_level_value $1)
     if [ "$log_level_value" -ge "$current_level_value" ]
     then
-    echo "{\"date\": \"$(date -u +"%Y-%m-%dT%H:%M:%SZ")\", \"level\": \"$1\", \"message\": \"$2\"}" 1>&3
+    echo "{\"date\": \"$(date +"%Y-%m-%dT%H:%M:%SZ")\", \"level\": \"$1\", \"message\": \"$2\"}" 1>&3
     fi
 }
 debug(){ log debug "$1"; }

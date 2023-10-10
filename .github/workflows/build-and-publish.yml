@@ -1,17 +1,13 @@
-
-# This is a basic workflow to help you get started with Actions
-
 name: Docker Continuous Delivery
 
+# only run when a new release is created
 on:
-  release: # only run when a new release is created
-    types:
-      - created
+  release: 
+    types: [created]
 
 env:
   DOCKER_REGISTRY_URL: ghcr.io
   DOCKER_IMAGE_NAME: ${{ github.repository }}
-  RELEASE_TAG: ${GITHUB_REF/refs\/tags\//}
 
 # Jobs triggered on workflow run.
 jobs:
@@ -52,4 +48,4 @@ jobs:
           context: .
           platforms: linux/amd64,linux/arm64
           push: true
-          tags: ${{ env.DOCKER_IMAGE_NAME }}:${{ env.RELEASE_TAG }},${{ env.DOCKER_IMAGE_NAME }}:latest
+          tags: ${{ env.DOCKER_IMAGE_NAME }}:${{ github.ref.name }},${{ env.DOCKER_IMAGE_NAME }}:latest

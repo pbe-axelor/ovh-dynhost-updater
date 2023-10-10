@@ -48,4 +48,3 @@ jobs:
           context: .
           platforms: linux/amd64,linux/arm64
           push: true
-          tags: ${{ env.DOCKER_IMAGE_NAME }}:${{ github.ref.name }},${{ env.DOCKER_IMAGE_NAME }}:latest
